@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+}
+
+:root {
+    --verde1: #0b9a10;
+    --verde2: #0bcf1271;
+    --amarillo : #ffea0077;
+    --rojo : #ff00007b;
+
+}
+.header-container {
+    position: relative;
+    background-color: var(--verde2);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 15%, 0 100%);
+    overflow: hidden;
+}
+
+header {
+    position: relative;
+    background-color: var(--verde1);
+    color: white;
+    padding: 20px 20px;
+    width: 100%;
+    text-align: left;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 70%);
+    z-index: 1;
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 25px;
+}
+
+main{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: stretch;
+}
+
+main > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.PlantasI-container{
+    width: 60%;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.PlantasI-container > p {
+    padding: 20px;
+    margin: 0;
+}
+
+.plantasF-container{
+    background-color: var(--verde2);
+    padding: 20px;
+    margin: 0;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.plantasM-container{
+    background-color: var(--amarillo);
+    padding: 20px;
+    margin: 0;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.plantasD-container{
+    background-color: var(--rojo);
+    padding: 20px;
+    margin: 0;
+    border-radius: 10px;
+    flex: 1;
+}
+
+section ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+section li {
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.plant-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.card-info {
+    display: none;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 8px;
+    color: #333;
+    text-align: left;
+    word-wrap: break-word;
+    border-radius: 0 0 5px 5px;
+}
+
+.plant-card.expanded .card-info {
+    display: block;
+}
+
+.plant-card.expanded {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+section li img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.Cultivos-container{
+    background-image: url("img/tierra.png");
+    padding: 20px;
+    margin: 0;
+    border-radius: 10px;
+    color: white;
+    flex: 1;
+}
+
+.Cultivos-container h4,
+.Cultivos-container p,
+.Cultivos-container li {
+    color: white;
+}
+
+.Cultivos-container section ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+.Cultivos-container section li {
+    background-color: rgba(76, 36, 3, 0.545);
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.Cultivos-container section li img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+/* Estilos para los botones del carrusel */
+.carousel-btn {
+    background-color: var(--verde1);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.carousel-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.carousel-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* El contenedor padre que sostiene todo */
+.carousel-container {
+    position: relative; /* Para que las flechas se peguen a sus bordes */
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* La ventana que corta las fotos */
+.carousel-viewport {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 40px; /* Espacio para que las flechas no tapen las fotos */
+}
+
+/* Estilo de las flechas < > */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Centra verticalmente */
+    background: rgba(0,0,0,0.5); /* Fondo oscuro semi-transparente */
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: rgba(0,0,0,0.8);
+}
+
+/* Posición específica */
+.prev { left: 0; }
+.next { right: 0; }
