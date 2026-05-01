@@ -1,254 +1,207 @@
-body {
-    margin: 0;
+/* --- 1. CONFIGURACIÓN BASE Y VARIABLES --- */
+body { 
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: #f9f9f9;
 }
 
 :root {
     --verde1: #0b9a10;
     --verde2: #0bcf1271;
-    --amarillo : #ffea0077;
-    --rojo : #ff00007b;
-
+    --amarillo: #ffea0077;
+    --rojo: #ff00007b;
+    --tierra: #4c2403;
 }
+
+/* --- 2. HEADER Y TÍTULOS --- */
 .header-container {
-    position: relative;
     background-color: var(--verde2);
     width: 100%;
-    max-width: none;
-    margin: 0;
     clip-path: polygon(0 0, 100% 0, 100% 15%, 0 100%);
     overflow: hidden;
 }
 
 header {
-    position: relative;
     background-color: var(--verde1);
     color: white;
-    padding: 20px 20px;
-    width: 100%;
-    text-align: left;
+    padding: 20px;
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 70%);
-    z-index: 1;
 }
 
-header h1 {
+header h1 { margin: 0; font-size: 25px; }
+
+.main-title-container {
+    padding: 20px 20px 0 20px;
+}
+
+.column-subtitle {
     margin: 0;
-
-    font-size: 25px;
-}
-
-main{
+    padding: 10px 0;
+    height: 30px; /* Asegura altura igual en ambas columnas */
     display: flex;
-    gap: 20px;
-    padding: 20px;
-    align-items: stretch;
+    align-items: center;
+    font-weight: bold;
+    color: #444;
 }
 
-main > div {
-    display: flex;
-    flex-direction: column;
+/* --- 3. ESTRUCTURA PRINCIPAL (ALINEACIÓN) --- */
+main { 
+    display: flex; 
+    gap: 20px; 
+    padding: 0 20px 20px 20px; 
+    align-items: flex-start; /* Alinea los techos de las columnas */
 }
 
-.PlantasI-container{
-    width: 60%;
+.PlantasI-container { 
+    width: 60%; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.container { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+/* --- 4. CONTENEDORES DE CATEGORÍAS --- */
+.plantasF-container, 
+.plantasM-container, 
+.plantasD-container, 
+.Cultivos-container {
+    padding: 20px; 
+    border-radius: 10px; 
+    margin-bottom: 20px;
+}
+
+.plantasF-container { background-color: var(--verde2); }
+.plantasM-container { background-color: var(--amarillo); }
+.plantasD-container { background-color: var(--rojo); }
+
+.Cultivos-container { 
+    background-image: url("../img/tierra.png"); 
+    background-size: cover;
+    background-position: center;
+    color: white; 
+    flex: 1; /* Hace que crezca hasta el final */
+}
+
+.Cultivos-container h4 { margin-top: 0; }
+
+/* --- 5. TARJETAS DE PLANTAS --- */
+section ul, .Cultivos-container ul {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    list-style: none; 
     padding: 0;
-    margin: 0;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.PlantasI-container > p {
-    padding: 20px;
-    margin: 0;
-}
-
-.plantasF-container{
-    background-color: var(--verde2);
-    padding: 20px;
-    margin: 0;
-    border-radius: 10px;
-    flex: 1;
-}
-
-.plantasM-container{
-    background-color: var(--amarillo);
-    padding: 20px;
-    margin: 0;
-    border-radius: 10px;
-    flex: 1;
-}
-
-.plantasD-container{
-    background-color: var(--rojo);
-    padding: 20px;
-    margin: 0;
-    border-radius: 10px;
-    flex: 1;
-}
-
-section ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-section li {
-    background-color: rgba(255, 255, 255, 0.158);
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease;
 }
 
 .plant-card {
-    display: flex;
+    background-color: rgba(255, 255, 255, 0.158);
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    text-align: center;
+    cursor: pointer; 
+    display: flex; 
     flex-direction: column;
     position: relative;
+    overflow: hidden; /* Necesario para la animación */
+    transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+.plant-card:hover {
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .plant-card img {
-    width: 300px;
-    max-width: 300px;
-    height: 300px;
+    width: 300px; 
+    height: 300px; 
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 5px; 
+    display: block; 
+    margin: 0 auto 8px auto;
 }
 
+/* --- 6. ANIMACIÓN DE INFORMACIÓN (ACORDEÓN) --- */
 .card-info {
-    display: none;
-    padding: 16px;
-    font-size: 13px;
-    line-height: 1.4;
-    background: rgba(255, 255, 255, 0.85);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    margin-top: 8px;
+    max-height: 0; /* Cerrado por defecto */
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease, margin 0.4s ease;
+    
+    /* Diseño interno */
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
     color: #333;
     text-align: left;
-    word-wrap: break-word;
-    border-radius: 0 0 8px 8px;
-}
-
-.card-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.card-info-item {
-    background: rgba(241, 250, 238, 0.95);
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-height: 68px;
-}
-
-.card-info-item strong {
-    font-weight: 700;
-    display: block;
-}
-
-.card-info-item span {
-    display: block;
-    color: #2c3e50;
-}
-
-.card-info .fallback-info {
-    white-space: pre-wrap;
-}
-
-.plant-card.expanded .card-info {
-    display: block;
 }
 
 .plant-card.expanded {
-    background-color: rgba(255, 255, 255, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.35) !important;
+    transform: translateY(-3px);
 }
 
-section li img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto 8px auto;
+.plant-card.expanded .card-info {
+    max-height: 500px; /* Suficiente para la grilla */
+    opacity: 1;
+    margin-top: 10px;
+    padding: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.Cultivos-container section li img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto 8px auto;
+/* --- 7. GRILLA TÉCNICA (1 2 / 3 4) --- */
+.card-info-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
 }
 
-.Cultivos-container{
-    background-image: url("../img/tierra.png");
-    padding: 20px;
-    margin: 0;
-    border-radius: 10px;
-    color: white;
-    flex: 1;
-}
-
-.Cultivos-container h4,
-.Cultivos-container p,
-.Cultivos-container li {
-    color: white;
-}
-
-.Cultivos-container section ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
+.card-info-item {
+    background: #f1faee; 
+    padding: 8px; 
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 55px;
     justify-content: center;
 }
 
-.Cultivos-container section li {
-    background-color: rgba(76, 36, 3, 0.545);
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-align: center;
+.card-info-item strong { 
+    font-size: 11px; 
+    color: #555; 
+    margin-bottom: 2px;
 }
 
-.Cultivos-container section li img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto 8px auto;
+.card-info-item span {
+    font-weight: bold;
+    color: var(--verde1);
+    font-size: 13px;
 }
 
-/* Estilos para los botones del carrusel */
-.carousel-btn {
-    background-color: var(--verde1);
-    color: white;
+/* --- 8. NAVEGACIÓN Y CARRUSEL --- */
+.carousel { 
+    align-items: flex-start !important; 
+}
+
+.nav-btn {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5); 
+    color: white; 
     border: none;
-    padding: 10px 15px;
-    margin: 10px 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    z-index: 10;
+    transition: background 0.3s;
 }
 
-.carousel-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
+.nav-btn:hover { background: rgba(0,0,0,0.8); }
+.prev { left: 0; } 
+.next { right: 0; }
 
 .carousel-buttons {
     display: flex;
@@ -256,47 +209,3 @@ section li img {
     gap: 10px;
     margin-top: 10px;
 }
-
-/* El contenedor padre que sostiene todo */
-.carousel-container {
-    position: relative; /* Para que las flechas se peguen a sus bordes */
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-/* La ventana que corta las fotos */
-.carousel-viewport {
-    overflow: hidden;
-    width: 100%;
-    margin: 0 40px; /* Espacio para que las flechas no tapen las fotos */
-}
-
-/* Estilo de las flechas < > */
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%); /* Centra verticalmente */
-    background: rgba(0,0,0,0.5); /* Fondo oscuro semi-transparente */
-    color: white;
-    border: none;
-    font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: background 0.3s;
-}
-
-.nav-btn:hover {
-    background: rgba(0,0,0,0.8);
-}
-
-/* Posición específica */
-.prev { left: 0; }
-.next { right: 0; }
