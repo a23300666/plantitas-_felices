@@ -111,18 +111,56 @@ section li {
     position: relative;
 }
 
+.plant-card img {
+    width: 300px;
+    max-width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
 .card-info {
     display: none;
-    padding: 12px;
-    font-size: 12px;
-    line-height: 1.5;
-    background: rgba(0, 0, 0, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.4;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     margin-top: 8px;
     color: #333;
     text-align: left;
     word-wrap: break-word;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 8px 8px;
+}
+
+.card-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.card-info-item {
+    background: rgba(241, 250, 238, 0.95);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 68px;
+}
+
+.card-info-item strong {
+    font-weight: 700;
+    display: block;
+}
+
+.card-info-item span {
+    display: block;
+    color: #2c3e50;
+}
+
+.card-info .fallback-info {
+    white-space: pre-wrap;
 }
 
 .plant-card.expanded .card-info {
@@ -134,8 +172,19 @@ section li {
 }
 
 section li img {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.Cultivos-container section li img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
     object-fit: cover;
     border-radius: 5px;
     display: block;
@@ -143,7 +192,7 @@ section li img {
 }
 
 .Cultivos-container{
-    background-image: url("img/tierra.png");
+    background-image: url("../img/tierra.png");
     padding: 20px;
     margin: 0;
     border-radius: 10px;
