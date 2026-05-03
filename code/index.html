@@ -81,6 +81,70 @@
         </div>
     </main>
 
+    <div id="seccion-monitoreo">
+        <button class="btn-regresar" onclick="cerrarMonitoreo()">⬅ Regresar al Catálogo</button>
+        
+        <h2 id="titulo-monitoreo">Monitoreo en Vivo</h2>
+
+        <div class="tu-cuadricula">
+<div class="col-izquierda">
+    <div class="cuadro-pequeno">
+        <p>LUZ</p>
+        <div class="molde-horizontal">
+            <div id="fill-luz" class="relleno-color" style="background: #f1c40f;"></div>
+            <img src="../img/sol.png" class="img-capa">
+        </div>
+        <span id="txt-luz">--%</span>
+        <small id="opt-luz">Cargando...</small>
+    </div>
+
+    <div class="cuadro-pequeno">
+        <p>TEMPERATURA</p>
+        <div class="molde-vertical">
+            <div id="fill-temp" class="relleno-color" style="background: #e74c3c;"></div>
+            <img src="../img/termometro.png" class="img-capa">
+        </div>
+        <span id="txt-temp">--°C</span>
+        <small id="opt-temp">Cargando...</small>
+    </div>
+
+    <div class="cuadro-pequeno">
+        <p>HUM. AMBIENTE</p>
+        <div class="molde-horizontal">
+            <div id="fill-hum-amb" class="relleno-color" style="background: #3498db;"></div>
+            <img src="../img/h_amb.png" class="img-capa">
+        </div>
+        <span id="txt-humedad-amb">--%</span>
+        <small id="opt-humedad-amb">Cargando...</small>
+    </div>
+
+    <div class="cuadro-pequeno">
+        <p>VPD</p>
+        <div class="molde-vertical">
+            <div id="fill-vpd" class="relleno-color" style="background: #2ecc71;"></div>
+            <img src="../img/vpd.png" class="img-capa">
+        </div>
+        <span id="txt-vpd">--</span>
+        <small id="opt-vpd">Cargando...</small>
+    </div>
+</div>
+            <div class="col-derecha">
+                <div class="cuadro-grande">
+                    <h3>HUMEDAD TIERRA</h3>
+                    <div class="maceta-contenedor">
+                        <div class="nivel-agua" id="fill-humedad-suelo"></div>
+                        <img src="../img/pot-outline.png" class="img-overlay">
+                    </div>
+                    <span id="txt-humedad-suelo">--%</span>
+                    <small id="opt-humedad-suelo">Rango Ideal: --</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script src="script.js" defer></script>
     <script src="script2.js" defer></script>
 </body>
