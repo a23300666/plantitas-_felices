@@ -6,31 +6,36 @@
           "Humedad_Tierra": { "min": 5, "max": 15 },
           "Temp_Ambiente": { "min": 18, "max": 30 },
           "Hum_Ambiente": { "min": 30, "max": 50 },
-          "VPD_Ideal": { "min": 1.2, "max": 1.6 }
+          "VPD_Ideal": { "min": 1.2, "max": 1.6 },
+          "Luz": { "min": 10, "max": 40 }
         },
         "gomero": {
           "Humedad_Tierra": { "min": 20, "max": 40 },
           "Temp_Ambiente": { "min": 18, "max": 26 },
           "Hum_Ambiente": { "min": 45, "max": 60 },
-          "VPD_Ideal": { "min": 1.0, "max": 1.2 }
+          "VPD_Ideal": { "min": 1.0, "max": 1.2 },
+          "Luz": { "min": 50, "max": 80 }
         },
         "ZZ": {
           "Humedad_Tierra": { "min": 10, "max": 20 },
           "Temp_Ambiente": { "min": 18, "max": 28 },
           "Hum_Ambiente": { "min": 30, "max": 50 },
-          "VPD_Ideal": { "min": 1.2, "max": 1.5 }
+          "VPD_Ideal": { "min": 1.2, "max": 1.5 },
+          "Luz": { "min": 5, "max": 30 }
         },
         "Potus": {
           "Humedad_Tierra": { "min": 25, "max": 45 },
           "Temp_Ambiente": { "min": 18, "max": 26 },
           "Hum_Ambiente": { "min": 50, "max": 70 },
-          "VPD_Ideal": { "min": 0.8, "max": 1.0 }
+          "VPD_Ideal": { "min": 0.8, "max": 1.0 },
+          "Luz": { "min": 30, "max": 60 }
         },
         "dracanea": {
           "Humedad_Tierra": { "min": 20, "max": 35 },
           "Temp_Ambiente": { "min": 18, "max": 26 },
           "Hum_Ambiente": { "min": 40, "max": 60 },
-          "VPD_Ideal": { "min": 1.0, "max": 1.3 }
+          "VPD_Ideal": { "min": 1.0, "max": 1.3 },
+          "Luz": { "min": 30, "max": 65 }
         }
       },
       "Nivel2": {
@@ -38,31 +43,36 @@
           "Humedad_Tierra": { "min": 40, "max": 60 },
           "Temp_Ambiente": { "min": 18, "max": 27 },
           "Hum_Ambiente": { "min": 50, "max": 70 },
-          "VPD_Ideal": { "min": 0.8, "max": 1.1 }
+          "VPD_Ideal": { "min": 0.8, "max": 1.1 },
+          "Luz": { "min": 40, "max": 75 }
         },
         "Espatifilo": {
           "Humedad_Tierra": { "min": 50, "max": 75 },
           "Temp_Ambiente": { "min": 18, "max": 25 },
           "Hum_Ambiente": { "min": 50, "max": 70 },
-          "VPD_Ideal": { "min": 0.7, "max": 1.0 }
+          "VPD_Ideal": { "min": 0.7, "max": 1.0 },
+          "Luz": { "min": 20, "max": 50 }
         },
         "Ficus_Benjamina": {
           "Humedad_Tierra": { "min": 35, "max": 55 },
           "Temp_Ambiente": { "min": 18, "max": 24 },
           "Hum_Ambiente": { "min": 45, "max": 60 },
-          "VPD_Ideal": { "min": 0.9, "max": 1.2 }
+          "VPD_Ideal": { "min": 0.9, "max": 1.2 },
+          "Luz": { "min": 50, "max": 85 }
         },
         "Palma_Areca": {
           "Humedad_Tierra": { "min": 40, "max": 65 },
           "Temp_Ambiente": { "min": 18, "max": 25 },
           "Hum_Ambiente": { "min": 55, "max": 75 },
-          "VPD_Ideal": { "min": 0.8, "max": 1.0 }
+          "VPD_Ideal": { "min": 0.8, "max": 1.0 },
+          "Luz": { "min": 50, "max": 85 }
         },
         "Philodendron": {
           "Humedad_Tierra": { "min": 30, "max": 50 },
           "Temp_Ambiente": { "min": 18, "max": 26 },
           "Hum_Ambiente": { "min": 50, "max": 65 },
-          "VPD_Ideal": { "min": 0.9, "max": 1.1 }
+          "VPD_Ideal": { "min": 0.9, "max": 1.1 },
+          "Luz": { "min": 30, "max": 60 }
         }
       },
       "Nivel3": {
@@ -70,31 +80,36 @@
           "Humedad_Tierra": { "min": 20, "max": 40 },
           "Temp_Ambiente": { "min": 16, "max": 24 },
           "Hum_Ambiente": { "min": 60, "max": 80 },
-          "VPD_Ideal": { "min": 0.6, "max": 0.9 }
+          "VPD_Ideal": { "min": 0.6, "max": 0.9 },
+          "Luz": { "min": 40, "max": 70 }
         },
         "Ficus_Lyrata": {
           "Humedad_Tierra": { "min": 35, "max": 50 },
           "Temp_Ambiente": { "min": 18, "max": 25 },
           "Hum_Ambiente": { "min": 50, "max": 70 },
-          "VPD_Ideal": { "min": 0.8, "max": 1.0 }
+          "VPD_Ideal": { "min": 0.8, "max": 1.0 },
+          "Luz": { "min": 60, "max": 90 }
         },
         "Calathea": {
           "Humedad_Tierra": { "min": 50, "max": 80 },
           "Temp_Ambiente": { "min": 18, "max": 23 },
           "Hum_Ambiente": { "min": 65, "max": 85 },
-          "VPD_Ideal": { "min": 0.4, "max": 0.7 }
+          "VPD_Ideal": { "min": 0.4, "max": 0.7 },
+          "Luz": { "min": 15, "max": 45 }
         },
         "Begonia_Maculata": {
           "Humedad_Tierra": { "min": 40, "max": 65 },
           "Temp_Ambiente": { "min": 18, "max": 24 },
           "Hum_Ambiente": { "min": 60, "max": 80 },
-          "VPD_Ideal": { "min": 0.5, "max": 0.8 }
+          "VPD_Ideal": { "min": 0.5, "max": 0.8 },
+          "Luz": { "min": 30, "max": 60 }
         },
         "Helecho_Boston": {
           "Humedad_Tierra": { "min": 60, "max": 85 },
           "Temp_Ambiente": { "min": 15, "max": 22 },
           "Hum_Ambiente": { "min": 70, "max": 90 },
-          "VPD_Ideal": { "min": 0.4, "max": 0.6 }
+          "VPD_Ideal": { "min": 0.4, "max": 0.6 },
+          "Luz": { "min": 20, "max": 50 }
         }
       }
     },
@@ -103,38 +118,44 @@
         "Humedad_Tierra": { "min": 50, "max": 70 },
         "Temp_Ambiente": { "min": 15, "max": 24 },
         "Hum_Ambiente": { "min": 40, "max": 60 },
-        "VPD_Ideal": { "min": 1.0, "max": 1.4 }
+        "VPD_Ideal": { "min": 1.0, "max": 1.4 },
+        "Luz": { "min": 70, "max": 100 }
       },
       "Frijoles": {
         "Humedad_Tierra": { "min": 40, "max": 65 },
         "Temp_Ambiente": { "min": 18, "max": 26 },
         "Hum_Ambiente": { "min": 45, "max": 65 },
-        "VPD_Ideal": { "min": 0.9, "max": 1.2 }
+        "VPD_Ideal": { "min": 0.9, "max": 1.2 },
+        "Luz": { "min": 70, "max": 100 }
       },
       "Jitomate": {
         "Humedad_Tierra": { "min": 60, "max": 85 },
         "Temp_Ambiente": { "min": 20, "max": 28 },
         "Hum_Ambiente": { "min": 50, "max": 70 },
-        "VPD_Ideal": { "min": 0.8, "max": 1.1 }
+        "VPD_Ideal": { "min": 0.8, "max": 1.1 },
+        "Luz": { "min": 80, "max": 100 }
       },
       "Lechuga": {
         "Humedad_Tierra": { "min": 60, "max": 85 },
         "Temp_Ambiente": { "min": 12, "max": 20 },
         "Hum_Ambiente": { "min": 50, "max": 75 },
-        "VPD_Ideal": { "min": 0.7, "max": 1.0 }
+        "VPD_Ideal": { "min": 0.7, "max": 1.0 },
+        "Luz": { "min": 50, "max": 90 }
       },
       "Cebolla": {
         "Humedad_Tierra": { "min": 40, "max": 65 },
         "Temp_Ambiente": { "min": 15, "max": 25 },
         "Hum_Ambiente": { "min": 40, "max": 60 },
-        "VPD_Ideal": { "min": 1.0, "max": 1.3 }
+        "VPD_Ideal": { "min": 1.0, "max": 1.3 },
+        "Luz": { "min": 70, "max": 100 }
       }
     }
   },
   "Lecturas": {
-    "Humedad_Tierra": {"l":0},
-    "Temperatura": {"l":0},
-    "Humedad_Ambiente": {"l":0},
-    "VPD": {"l":0}
+    "Humedad_Tierra": {"actual":0},
+    "Temperatura": {"actual":0},
+    "Humedad_Ambiente": {"actual":0},
+    "VPD": {"actual":0},
+    "Luz": {"actual":0}
   }
 }

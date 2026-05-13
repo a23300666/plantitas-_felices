@@ -1,11 +1,10 @@
-// 1. CONFIGURACIÓN DE FIREBASE (Asegúrate de que solo esté una vez)
+// 1. CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
-    apiKey: "AIzaSyCvciPOr-LNN8LfIMfW66jp7uO_GxEOgSo", 
+    apiKey: "EWBNn3mwpeBSJewNV85HZBryTHh7jtlTmaQTrzYw", 
     databaseURL: "https://plantitas-felices-d026b-default-rtdb.firebaseio.com/",
     projectId: "plantitas-felices-d026b"
 };
 
-// Inicializar Firebase solo si no se ha hecho ya
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
@@ -23,31 +22,29 @@ const cardKeyMap = {
     'Frijoles': 'Frijoles', 'Jitomate': 'Jitomate', 'Lechuga': 'Lechuga', 'Cebolla': 'Cebolla'
 };
 
-// 2. FUNCIONES DE MONITOREO (Globales para que el botón las vea)
+// 2. FUNCIONES DE MONITOREO
 window.iniciarMonitoreo = (nombrePlanta) => {
-    console.log("Iniciando monitoreo para:", nombrePlanta);
+    // VERIFICACIÓN: Si no hay usuario logueado, no permitir monitoreo
+    if (!window.usuarioLogueado || window.usuarioLogueado === "") {
+        alert("Por favor, inicia sesión para ver tus lecturas en vivo.");
+        return;
+    }
+
+    console.log("Iniciando monitoreo para:", nombrePlanta, "Usuario:", window.usuarioLogueado);
     
     // Ocultar catálogo
     document.querySelector('main').style.display = 'none';
-    document.querySelector('.main-title-container').style.display = 'none';
+    const mainTitle = document.querySelector('.main-title-container');
+    if (mainTitle) mainTitle.style.display = 'none';
     
     // Mostrar panel de monitoreo
     const seccion = document.getElementById('seccion-monitoreo');
-    if (seccion) {
-        seccion.style.display = 'block';
-    }
+    if (seccion) seccion.style.display = 'block';
 
     // Actualizar Título
     document.getElementById('titulo-monitoreo').innerText = `Monitoreo en Vivo: ${nombrePlanta}`;
 
-    // Cargar Imagen de la planta
-    const imgMonitor = document.getElementById('img-monitor');
-    if (imgMonitor) {
-        // Buscamos el nombre del archivo. Ejemplo: ../img/Sansevieria.png
-        imgMonitor.src = `../img/${nombrePlanta}.png`;
-    }
-
-    // Cargar rangos óptimos desde el JSON
+    // Cargar rangos óptimos desde el JSON local (bdd2.json)
     const key = cardKeyMap[nombrePlanta] || nombrePlanta;
     const info = globalPlantData[key];
     if (info) {
@@ -55,49 +52,91 @@ window.iniciarMonitoreo = (nombrePlanta) => {
         document.getElementById('opt-humedad-amb').innerText = `Ideal: ${info.Hum_Ambiente.min}-${info.Hum_Ambiente.max}%`;
         document.getElementById('opt-vpd').innerText = `Ideal: ${info.VPD_Ideal.min}-${info.VPD_Ideal.max}`;
         document.getElementById('opt-humedad-suelo').innerText = `Ideal: ${info.Humedad_Tierra.min}-${info.Humedad_Tierra.max}%`;
+        document.getElementById('opt-luz').innerText = "Ideal: " + (info.Luz ? `${info.Luz.min}-${info.Luz.max}%` : "N/A");
     }
 
-    // Escuchar Firebase
-     // --- FUNCIÓN AUXILIAR PARA ACTUALIZAR GRÁFICAS ---
-const actualizarGrafica = (rutaFirebase, idFill, idTxt, unidad = "") => {
-    database.ref(rutaFirebase).on('value', (snapshot) => {
-        let val = snapshot.val();
-        
-        // Limpieza de datos (por si llega [object Object])
-        if (val !== null && typeof val === 'object') val = Object.values(val)[0];
-        const num = parseFloat(val);
+    // RUTA DINÁMICA BASADA EN EL USUARIO
+    const userPath = `usuarios/${window.usuarioLogueado}/lecturas/`;
 
+    // --- FUNCIÓN AUXILIAR PARA ACTUALIZAR GRÁFICAS ---
+    const actualizarGrafica = (subRuta, idFill, idTxt, unidad = "", idOpt = null) => {
+        database.ref(userPath + subRuta).on('value', (snapshot) => {
+            let val = snapshot.val();
+            if (val !== null && typeof val === 'object') val = Object.values(val)[0];
+            const num = parseFloat(val);
+
+            if (!isNaN(num)) {
+                const fill = document.getElementById(idFill);
+                const txt = document.getElementById(idTxt);
+                if (fill) fill.style.height = num + "%";
+                if (txt) txt.innerText = num + unidad;
+
+                if (idOpt === 'opt-luz') {
+                    const opt = document.getElementById(idOpt);
+                    if (opt) {
+                        if (num < 20) opt.innerText = "Poca luz";
+                        else if (num < 70) opt.innerText = "Luz óptima";
+                        else opt.innerText = "Mucha luz";
+                    }
+                }
+            }
+        });
+    };
+
+    // ACTUALIZACIONES CON LA NUEVA RUTA
+    actualizarGrafica('Luz/actual', 'fill-luz', 'txt-luz', "%", 'opt-luz');
+    actualizarGrafica('Temperatura/actual', 'fill-temp', 'txt-temp', "°C");
+
+    // Humedad Ambiente Especial
+    database.ref(userPath + 'Humedad_Ambiente/actual').on('value', (snapshot) => {
+        let val = snapshot.val();
+        const num = parseFloat(val);
         if (!isNaN(num)) {
-            const fill = document.getElementById(idFill);
-            const txt = document.getElementById(idTxt);
-            
-            if (fill) fill.style.height = num + "%";
-            if (txt) txt.innerText = num + unidad;
+            const fillHum = document.getElementById('fill-hum-amb');
+            const txtHum = document.getElementById('txt-humedad-amb');
+            let porcentajeAltura = (num / 50) * 100; 
+            if (porcentajeAltura > 100) porcentajeAltura = 100;
+            if (fillHum) fillHum.style.height = porcentajeAltura + "%";
+            if (txtHum) txtHum.innerText = num.toFixed(1) + "%"; 
         }
     });
-};
 
-// --- LLAMADAS A FIREBASE ---
-// Asegúrate de que los nombres 'Luz', 'Temperatura', etc., coincidan con tu Firebase
-actualizarGrafica('Luz', 'fill-luz', 'txt-luz', "%");
-actualizarGrafica('Temperatura', 'fill-temp', 'txt-temp', "°C");
-actualizarGrafica('HumedadAmb', 'fill-hum-amb', 'txt-humedad-amb', "%");
-actualizarGrafica('VPD', 'fill-vpd', 'txt-vpd', ""); 
+    // VPD Especial
+    database.ref(userPath + 'VPD/actual').on('value', (snapshot) => {
+        let val = snapshot.val();
+        const num = parseFloat(val);
+        if (!isNaN(num)) {
+            const fillVpd = document.getElementById('fill-vpd');
+            const txtVpd = document.getElementById('txt-vpd');
+            let porcentajeAltura = num * 10; 
+            if (porcentajeAltura > 100) porcentajeAltura = 100;
+            if (fillVpd) fillVpd.style.height = porcentajeAltura + "%";
+            if (txtVpd) txtVpd.innerText = num.toFixed(2);
+        }
+    });
 
-// El de la tierra (que ya tenías)
-actualizarGrafica('Humedad', 'fill-humedad-suelo', 'txt-humedad-suelo', "%");
+    actualizarGrafica('Humedad_Tierra/actual', 'fill-humedad-suelo', 'txt-humedad-suelo', "%");
 };
 
 window.cerrarMonitoreo = () => {
     document.getElementById('seccion-monitoreo').style.display = 'none';
     document.querySelector('main').style.display = 'flex';
-    document.querySelector('.main-title-container').style.display = 'block';
-    database.ref('Humedad').off(); // Apagar Firebase
+    const mainTitle = document.querySelector('.main-title-container');
+    if (mainTitle) mainTitle.style.display = 'block';
+    
+    // Apagar listeners dinámicos
+    if(window.usuarioLogueado){
+        const userPath = `usuarios/${window.usuarioLogueado}/lecturas/`;
+        database.ref(userPath + 'Luz/actual').off();
+        database.ref(userPath + 'Temperatura/actual').off();
+        database.ref(userPath + 'Humedad_Ambiente/actual').off();
+        database.ref(userPath + 'VPD/actual').off();
+        database.ref(userPath + 'Humedad_Tierra/actual').off();
+    }
 };
 
-// 3. LÓGICA DE CARGA (Al cargar el documento)
+// 3. LÓGICA DE CARGA INICIAL (IGUAL A TU CÓDIGO)
 document.addEventListener('DOMContentLoaded', () => {
-    
     const formatPlantData = (data, name) => {
         return `
             <div class="card-info-grid">
@@ -112,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateCards = (map) => {
         globalPlantData = map;
         document.querySelectorAll('.plant-card').forEach(card => {
-            const name = card.querySelector('img')?.alt.trim() || '';
+            const img = card.querySelector('img');
+            const name = img ? img.alt.trim() : '';
             const key = cardKeyMap[name] || name.replace(/\s+/g, '_');
             
             let infoDiv = card.querySelector('.card-info');
@@ -125,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Cargar JSON
     fetch('bdd2.json')
         .then(r => r.json())
         .then(json => {
@@ -138,14 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             traverse(json);
             updateCards(map);
-        });
+        })
+        .catch(err => console.error("Error cargando bdd2.json:", err));
 
-    // Manejo de clicks en tarjetas
     document.addEventListener('click', (e) => {
         const card = e.target.closest('.plant-card');
         if (!card || e.target.classList.contains('btn-monitorear')) return;
-        const open = document.querySelector('.plant-card.expanded');
-        if (open) open.classList.remove('expanded');
-        if (card !== open) card.classList.add('expanded');
+        const isExpanded = card.classList.contains('expanded');
+        document.querySelectorAll('.plant-card.expanded').forEach(c => c.classList.remove('expanded'));
+        if (!isExpanded) card.classList.add('expanded');
     });
 });
