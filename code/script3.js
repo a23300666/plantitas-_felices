@@ -121,24 +121,28 @@ window.usuarioLogueado = inputNombre; // Esto lo hace visible para el script2.js
         });
 });
 // --- LÓGICA DE CERRAR SESIÓN ---
-const btnLogout = document.getElementById('btn-logout');
-
-btnLogout.addEventListener('click', () => {
-    // 1. Confirmar con el usuario
-    if (confirm("¿Seguro que quieres salir del jardín?")) {
-        
-        // 2. Avisar al Arduino que ya no hay nadie activo
-        // Esto evita que el ESP32 siga mandando datos a tu cuenta
-        firebase.database().ref('/Control_Dispositivo').set({
-            usuario_activo: "ninguno"
-        }).then(() => {
-            // 3. Reiniciar la página para que aparezca el login de nuevo
-            // Es la forma más limpia de resetear todos los estados de la web
-            window.location.reload();
-        }).catch(err => {
-            console.error("Error al cerrar sesión:", err);
-            // Si falla el internet, al menos recargamos la página
-            window.location.reload();
+document.addEventListener('DOMContentLoaded', () => {
+    const btnLogout = document.getElementById('btn-logout');
+    
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // 1. Confirmar con el usuario
+            if (confirm("¿Seguro que quieres salir del jardín?")) {
+                
+                // 2. Avisar al Arduino que ya no hay nadie activo
+                // Esto evita que el ESP32 siga mandando datos a tu cuenta
+                firebase.database().ref('/Control_Dispositivo').set({
+                    usuario_activo: "ninguno"
+                }).then(() => {
+                    // 3. Reiniciar la página para que aparezca el login de nuevo
+                    // Es la forma más limpia de resetear todos los estados de la web
+                    window.location.reload();
+                }).catch(err => {
+                    console.error("Error al cerrar sesión:", err);
+                    // Si falla el internet, al menos recargamos la página
+                    window.location.reload();
+                });
+            }
         });
     }
 });

@@ -52,10 +52,19 @@
             <h1>🌱 Plantitas Felices</h1>
         </header>
     </div>
-            <button id="btn-logout" class="btn-logout">Cerrar Sesión </button>
-
+            <button id="btn-logout" class="btn-logout"><img src="logout.svg"></button>
     <div class="main-title-container">
         <h2>¿Qué planta estás cuidando?</h2>
+        <div class="search-container">
+            <input type="text" id="search-plants" class="search-input" placeholder="🔍 Buscar planta...">
+        </div>
+    </div>
+
+    <!-- Panel de Resultados de Búsqueda -->
+    <div id="search-results" class="search-results-panel" style="display: none;">
+        <button class="btn-close-results" onclick="closeSearchResults()">✕</button>
+        <h3>Resultados encontrados</h3>
+        <div id="results-list" class="results-list"></div>
     </div>
 
     <main>
@@ -174,7 +183,7 @@
                     <h3>HUMEDAD TIERRA</h3>
                     <div class="maceta-contenedor">
                         <div class="nivel-agua" id="fill-humedad-suelo"></div>
-                        <img src="../img/pot-outline.png" class="img-overlay">
+                        <img src="../img/pot-outline.svg" class="img-overlay">
                     </div>
                     <span id="txt-humedad-suelo">--%</span>
                     <small id="opt-humedad-suelo">Rango Ideal: --</small>
@@ -188,8 +197,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="script.js" defer></script>
     <script src="script2.js" defer></script>
-
-    <script src="script3.js" defer></script>
 
 
 </body>
